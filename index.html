@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Driven -Taxi</title>
+</head>
+
+<body>
+    <h2>Renseignez vos données </h2>
+
+    <form>
+        <label for="fname">Nom :</label><br>
+        <input type="text" id="fname" name="fname" value="John"><br>
+
+        <label for="lname">Prénom : </label><br>
+        <input type="text" id="lname" name="lname" value="Doe"><br><br>
+
+        <label for="telf">Téléphone :</label><br>
+        <input type="tel" id="telf" name="telf" value="0123456789"><br>
+
+        <label for="addresseDep">Adresse de départ :</label><br>
+        <input type="text" id="addresseDep" name="addresseDep"><br><br>
+
+        <label for="adresseArr">Adresse arrivée :</label><br>
+        <input type="text" id="adresseArr" name="adresseArr"><br>
+
+        <label for="dateDepart">Date de départ :</label><br>
+        <input type="text" id="dateDepart" name="dateDepart"><br><br>
+
+        <label for="heureDepart">Heure de départ :</label><br>
+        <input type="text" id="heureDepart" name="heureDepart"><br><br>
+
+        <label for="prix">Prix :</label><br>
+        <input type="text" id="prix" name="prix"><br><br>
+
+
+
+
+        <button onclick="envoyerDemande()"> Envoyer</button>
+    </form>
+
+    <script>
+   
+        function envoyerDemande() {
+            var myHeaders = new Headers();
+            const nom = document.getElementById('fname');
+            const prenom = document.getElementById('lname');
+            const telf = document.getElementById('telf');
+            const addresseDep = document.getElementById('addresseDep');
+            const adresseArr = document.getElementById('adresseArr');
+            const dateDepart = document.getElementById('dateDepart');
+            const heureDepart = document.getElementById('heureDepart');
+            const prix = document.getElementById('prix');
+
+            myHeaders.append("Content-Type", "application/json");
+
+            var raw = JSON.stringify({
+                "nom": nom,
+                "prenom": prenom,
+                "telf": telf,
+                "addresseDep": addresseDep,
+                "adresseArr": adresseArr,
+                "dateDepart": dateDepart,
+                "heureDepart": heureDepart,
+                "prix": prix,
+            });
+
+            var requestOptions = {
+                method: 'POST',
+                headers: myHeaders,
+                body: raw,
+                redirect: 'follow'
+            };
+
+            fetch("localhost:3000/demande", requestOptions)
+                .then(response => response.text())
+                .then(result => console.log(result))
+                .catch(error => console.log('error', error));
+        }
+    </script>
+
+</body>
+
+</html>

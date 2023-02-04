@@ -19,6 +19,11 @@ app.use(express.static('images'));
 app.use(express.urlencoded({extended: true}));
 app.use(express.json());
 
+
+app.get('/demande', function(request, response) {
+  response.sendFile('./index.html', { root: '.' });
+});
+
 app.use('/',Demande);
 app.use('/demande',Demande);
 
